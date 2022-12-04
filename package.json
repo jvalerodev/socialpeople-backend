@@ -4,6 +4,7 @@
   "main": "index.ts",
   "author": "jvalerodev",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "node ./build/index.js",
     "build": "tsc -p .",
