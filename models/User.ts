@@ -1,7 +1,8 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 interface IUser {
+  _id: Types.ObjectId;
   firstname: string;
   lastname: string;
   email: string;
@@ -12,9 +13,11 @@ interface IUser {
   occupation: string;
   viewedProfile: number;
   impressions: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-const UserSchema = new Schema<IUser>(
+const UserSchema = new Schema(
   {
     firstname: {
       type: String,
@@ -62,6 +65,6 @@ UserSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-const User = mongoose.model('Users', UserSchema);
+const User = mongoose.model<IUser>('Users', UserSchema);
 
 export default User;
