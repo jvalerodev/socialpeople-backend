@@ -54,11 +54,11 @@ export const register = async (
 
     res.status(201).json({ user: resUser, ok: true });
   } catch (error) {
+    console.log(error);
+
     if (error instanceof Error) {
       res.status(500).json({ msg: error.message, ok: false });
     }
-
-    console.log(error);
   }
 };
 
@@ -88,10 +88,10 @@ export const login = async (
 
     res.status(200).json({ user: resUser, token, ok: true });
   } catch (error) {
+    console.log(error);
+
     if (error instanceof Error) {
       res.status(500).json({ msg: error.message, ok: false });
     }
-
-    console.log(error);
   }
 };
