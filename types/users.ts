@@ -1,7 +1,8 @@
+/** USERS CONTROLLER */
+
 import { Types } from 'mongoose';
 
-/** AUTH CONTROLLER */
-interface User {
+export interface GetUserSuccess {
   user: {
     _id: Types.ObjectId;
     firstname: string;
@@ -16,30 +17,20 @@ interface User {
     createdAt: Date;
     updatedAt: Date;
   };
-}
-
-export interface RegisterBody {
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  picturePath: string;
-  friends: [];
-  location: string;
-  occupation: string;
-}
-
-export interface RegisterSuccess extends User {
   ok: boolean;
 }
 
-export interface LoginBody {
-  email: string;
-  password: string;
+interface Friends {
+  _id?: Types.ObjectId;
+  firtsname?: string;
+  lastname?: string;
+  occupation?: string;
+  location?: string;
+  picturePath?: string;
 }
 
-export interface LoginSuccess extends User {
-  token: string;
+export interface GetFriendsSuccess {
+  friends: Friends[];
   ok: boolean;
 }
 

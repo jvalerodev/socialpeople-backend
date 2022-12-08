@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import connectDB from './config/mongo.js';
-import authRoutes from './routes/auth.js';
+import { authRoutes, userRoutes } from './routes/index.js';
 
 /** CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -27,6 +27,7 @@ app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 
 /** ROUTES */
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 
 /** MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;

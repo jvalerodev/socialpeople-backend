@@ -5,16 +5,15 @@ import User from '../models/User.js';
 import {
   RegisterBody,
   RegisterSuccess,
-  RegisterError,
   LoginBody,
   LoginSuccess,
-  LoginError
+  Error
 } from '../types/typings.js';
 
 /** REGISTER USER */
 export const register = async (
   req: Request,
-  res: Response<RegisterSuccess | RegisterError>
+  res: Response<RegisterSuccess | Error>
 ) => {
   const {
     firstname,
@@ -65,7 +64,7 @@ export const register = async (
 /** LOGGIN USER */
 export const login = async (
   req: Request,
-  res: Response<LoginSuccess | LoginError>
+  res: Response<LoginSuccess | Error>
 ) => {
   const { email, password }: LoginBody = req.body;
 
