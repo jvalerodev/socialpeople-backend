@@ -9,15 +9,15 @@ interface IUser {
   password: string;
   picturePath: string;
   friends: string[];
-  location: string;
-  occupation: string;
-  viewedProfile: number;
-  impressions: number;
+  location?: string;
+  occupation?: string;
+  viewedProfile?: number;
+  impressions?: number;
   createdAt: Date;
   updatedAt: Date;
 }
 
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
     firstname: {
       type: String,
@@ -46,10 +46,12 @@ const UserSchema = new Schema(
       type: String,
       default: ''
     },
-    friends: {
-      type: [],
-      default: []
-    },
+    friends: [
+      {
+        type: String,
+        default: []
+      }
+    ],
     location: String,
     occupation: String,
     viewedProfile: Number,
@@ -58,13 +60,13 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-UserSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) next();
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-const User = mongoose.model<IUser>('Users', UserSchema);
+const User = mongoose.model<IUser>('Users', userSchema);
 
 export default User;

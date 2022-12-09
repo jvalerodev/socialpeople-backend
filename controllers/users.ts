@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import User from '../models/User.js';
-import { GetUserSuccess, GetFriendsSuccess, Error } from '../types/users.js';
+import { GetUserRes, GetFriendsRes, ErrorRes } from '../types/typings.js';
 
 export const getUser = async (
   req: Request,
-  res: Response<GetUserSuccess | Error>
+  res: Response<GetUserRes | ErrorRes>
 ) => {
   const { id } = req.params;
 
@@ -27,7 +27,7 @@ export const getUser = async (
 
 export const getUserFriends = async (
   req: Request,
-  res: Response<GetFriendsSuccess | Error>
+  res: Response<GetFriendsRes | ErrorRes>
 ) => {
   const { id } = req.params;
 
@@ -63,7 +63,7 @@ export const getUserFriends = async (
 
 export const addRemoveFriend = async (
   req: Request,
-  res: Response<GetFriendsSuccess | Error>
+  res: Response<GetFriendsRes | ErrorRes>
 ) => {
   const { id, friendId } = req.params;
 

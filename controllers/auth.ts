@@ -4,16 +4,16 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import {
   RegisterBody,
-  RegisterSuccess,
+  RegisterRes,
   LoginBody,
-  LoginSuccess,
-  Error
+  LoginRes,
+  ErrorRes
 } from '../types/typings.js';
 
 /** REGISTER USER */
 export const register = async (
   req: Request,
-  res: Response<RegisterSuccess | Error>
+  res: Response<RegisterRes | ErrorRes>
 ) => {
   const {
     firstname,
@@ -64,7 +64,7 @@ export const register = async (
 /** LOGGIN USER */
 export const login = async (
   req: Request,
-  res: Response<LoginSuccess | Error>
+  res: Response<LoginRes | ErrorRes>
 ) => {
   const { email, password }: LoginBody = req.body;
 
@@ -82,7 +82,6 @@ export const login = async (
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!);
-
     const { password: pass, ...resUser } = user.toJSON();
 
     res.status(200).json({ user: resUser, token, ok: true });
