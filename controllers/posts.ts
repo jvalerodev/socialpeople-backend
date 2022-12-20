@@ -14,7 +14,7 @@ export const getFeedPosts = async (
   res: Response<PostsRes | ErrorRes>
 ) => {
   try {
-    const posts = await Post.find().select('-__v');
+    const posts = await Post.find().select('-__v').sort({ createdAt: 'desc' });
     res.status(200).json({ posts, ok: true });
   } catch (error) {
     console.log(error);
@@ -32,7 +32,10 @@ export const getUserPosts = async (
   const { userId } = req.params;
 
   try {
-    const posts = await Post.find({ userId }).select('-__v');
+    const posts = await Post.find({ userId })
+      .select('-__v')
+      .sort({ createdAt: 'desc' });
+
     res.status(200).json({ posts, ok: true });
   } catch (error) {
     console.log(error);
@@ -69,7 +72,7 @@ export const createPost = async (
     });
 
     await newPost.save();
-    const posts = await Post.find().select('-__v');
+    const posts = await Post.find().select('-__v').sort({ createdAt: 'desc' });
 
     res.status(201).json({ posts, ok: true });
   } catch (error) {
