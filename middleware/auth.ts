@@ -12,6 +12,11 @@ interface AuthError {
   ok: boolean;
 }
 
+type JWTRes = {
+  id: string;
+  iat: number;
+};
+
 export const verifyToken = async (
   req: AuthRequest,
   res: Response<AuthError>,
@@ -26,8 +31,8 @@ export const verifyToken = async (
     try {
       token = authorization.split(' ')[1];
 
-      const verified = jwt.verify(token, process.env.JWT_SECRET!);
-      const user = await User.findOne({ _id: verified }).select('-password');
+      const verified = jwt.verify(token, process.env.JWT_SECRET!) as JWTRes;
+      const user = await User.findOne({ _id: verified.id }).select('-password');
       req.user = user?._id;
 
       return next();
